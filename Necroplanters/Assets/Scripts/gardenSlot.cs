@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class gardenSlot : MonoBehaviour
 {
+    public GameObject ghostPlant;
     public bool isColliding = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,11 +22,12 @@ public class gardenSlot : MonoBehaviour
         {
              if (Input.GetKey(KeyCode.Return))
              {
-                print("clicked");
                 if (collision.gameObject.GetComponent<Player>().isHoldingSeed)
                 {
-                    //Instantiate a plant here
-                    print($"planted in garden at location {transform.position}");
+                    //Instantiate a plant here with this slot as a parent
+                    GameObject ghostPlantInst = Instantiate(ghostPlant, this.transform);
+                    //Set its local pos to 0
+                    ghostPlantInst.transform.localPosition = new Vector3(0, 0, 0);
                     collision.gameObject.GetComponent<Player>().DropSeed();
                 }
             
